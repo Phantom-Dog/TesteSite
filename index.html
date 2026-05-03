@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A3 Usinagem | Precisão em Cada Peça</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --preto: #0f0f0f;
+      --vermelho: #e30613;
+      --branco: #ffffff;
+      --cinza: #1a1a1a;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--preto);
+      color: var(--branco);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15,15,15,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(227,6,19,0.3);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: var(--vermelho);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--vermelho);
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1581092160607-8f5c7c2b3b3b?ixlib=rb-4.0.3&auto=format&fit=crop&q=80') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      margin-bottom: 1rem;
+      color: white;
+    }
+
+    .hero .highlight {
+      color: var(--vermelho);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--vermelho);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s;
+      margin: 0 10px;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(227,6,19,0.4);
+    }
+
+    /* Seções */
+    section {
+      padding: 100px 5%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 3rem;
+      color: var(--vermelho);
+    }
+
+    /* Sobre */
+    #sobre {
+      background: var(--cinza);
+    }
+
+    /* Serviços */
+    #servicos {
+      background: var(--preto);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: #1f1f1f;
+      padding: 2.5rem;
+      border-radius: 12px;
+      text-align: center;
+      transition: 0.3s;
+      border: 1px solid #333;
+    }
+
+    .card:hover {
+      transform: translateY(-15px);
+      border-color: var(--vermelho);
+    }
+
+    .card i {
+      font-size: 3.5rem;
+      color: var(--vermelho);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Contato / Comprar */
+    #comprar {
+      background: var(--vermelho);
+      color: white;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      background: #0a0a0a;
+      padding: 3rem 5%;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="https://i.imgur.com/5v5v5v5.png" alt="A3" width="60"> <!-- Substitua pela sua logo se quiser -->
+      <span>A3</span> USINAGEM
+    </div>
+    <nav>
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#comprar">Compre Conosco</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Precisão que <span class="highlight">move</span> indústrias</h1>
+      <p>Usinagem de alta performance com tecnologia de ponta e qualidade certificada.</p>
+      <a href="#comprar" class="btn">COMPRE CONOSCO</a>
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section id="sobre">
+    <h2 class="section-title">A3 Usinagem</h2>
+    <p style="max-width: 900px; margin: 0 auto; font-size: 1.3rem; text-align: center;">
+      Há mais de 10 anos transformando ideias em peças de alta precisão. 
+      Contamos com tecnologia CNC de última geração, profissionais altamente qualificados 
+      e compromisso com a excelência em cada detalhe.
+    </p>
+  </section>
+
+  <!-- Serviços -->
+  <section id="servicos">
+    <h2 class="section-title">Nossos Serviços</h2>
+    <div class="cards">
+      <div class="card">
+        <i class="fas fa-cogs"></i>
+        <h3>Usinagem CNC</h3>
+        <p>Precisão milimétrica em torneamento, fresamento e mais.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-industry"></i>
+        <h3>Projetos Especiais</h3>
+        <p>Desenvolvimento e fabricação de peças sob medida.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-tools"></i>
+        <h3>Manutenção Industrial</h3>
+        <p>Recuperação e fabricação de componentes para máquinas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compre Conosco -->
+  <section id="comprar">
+    <h2 style="font-size: 3rem; margin-bottom: 2rem;">Pronto para começar seu projeto?</h2>
+    <a href="compra.html" class="btn" style="font-size: 1.5rem; padding: 20px 50px;">
+      COMPRE CONOSCO
+    </a>
+    <p style="margin-top: 2rem; opacity: 0.9;">Peças com qualidade, prazo e preço justo.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 A3 Usinagem - Todos os direitos reservados</p>
+    <p style="margin-top: 10px;">Precisa de algo especial? <strong>Entre em contato!</strong></p>
+  </footer>
+
+  <script>
+    // Scroll suave
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        if (this.getAttribute('href') !== '#') {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
