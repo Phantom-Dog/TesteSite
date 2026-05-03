@@ -20,7 +20,6 @@
       overflow-x: hidden;
     }
 
-    /* Sparkles Brancos */
     #pixelRain {
       position: fixed;
       top: 0; left: 0;
@@ -54,29 +53,11 @@
     }
     nav a:hover { color: var(--vermelho); }
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      padding: 0 15px;
-    }
+    .hero, section { padding: 90px 5% 100px; }
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
 
-    .hero h1 {
-      font-size: clamp(2.8rem, 8.5vw, 5.2rem);
-      line-height: 1.1;
-      margin-bottom: 1.2rem;
-    }
+    .hero h1 { font-size: clamp(2.8rem, 8.5vw, 5.2rem); line-height: 1.1; margin-bottom: 1.2rem; }
     .hero .highlight { color: var(--vermelho); }
-
-    .hero p {
-      font-size: clamp(1.1rem, 4vw, 1.35rem);
-      max-width: 700px;
-      margin: 0 auto 2.5rem;
-      opacity: 0.9;
-    }
 
     .btn {
       background: var(--vermelho);
@@ -87,10 +68,10 @@
       font-weight: bold;
       text-decoration: none;
       transition: all 0.4s;
+      margin: 10px;
     }
     .btn:hover { transform: translateY(-6px) scale(1.05); }
 
-    section { padding: 90px 5% 100px; }
     .section-title {
       text-align: center;
       font-size: clamp(2.2rem, 6vw, 2.8rem);
@@ -98,22 +79,19 @@
       color: var(--vermelho);
     }
 
+    /* Galeria Clickable */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
+      gap: 1.8rem;
     }
-
     .gallery-card {
       position: relative;
       border-radius: 12px;
       overflow: hidden;
       height: 280px;
+      cursor: pointer;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      transition: 0.4s;
-    }
-    .gallery-card:hover {
-      transform: scale(1.04);
     }
     .gallery-card img {
       width: 100%;
@@ -121,23 +99,40 @@
       object-fit: cover;
       transition: 0.5s;
     }
-    .gallery-card:hover img {
-      transform: scale(1.1);
+    .gallery-card:hover img { transform: scale(1.1); }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
     }
-    .gallery-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.9));
-      padding: 25px 20px 20px;
-      color: white;
+    #lightbox img {
+      max-width: 95%;
+      max-height: 95%;
+      border-radius: 8px;
     }
 
-    @media (max-width: 768px) {
-      section { padding: 70px 6% 80px; }
-      .gallery-card { height: 240px; }
+    /* Social Buttons */
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #1a1a1a;
+      padding: 14px 28px;
+      border-radius: 50px;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      margin: 10px;
+      transition: 0.3s;
     }
+    .social-btn:hover { background: #333; transform: scale(1.05); }
   </style>
 </head>
 <body>
@@ -152,7 +147,7 @@
       <a href="#sobre">Sobre</a>
       <a href="#servicos">Serviços</a>
       <a href="#galeria">Galeria</a>
-      <a href="#comprar">Compre Conosco</a>
+      <a href="#historia">Nossa História</a>
     </nav>
   </header>
 
@@ -160,10 +155,11 @@
     <div>
       <h1>Precisão que <span class="highlight">move</span> indústrias</h1>
       <p>Usinagem de alta performance com tecnologia de ponta e qualidade certificada.</p>
-      <a href="#comprar" class="btn">COMPRE CONOSCO</a>
+      <a href="#historia" class="btn">SAIBA MAIS</a>
     </div>
   </section>
 
+  <!-- Sobre -->
   <section id="sobre">
     <h2 class="section-title">A3 Usinagem</h2>
     <p style="max-width: 800px; margin: 0 auto; font-size: clamp(1.1rem, 4vw, 1.3rem); text-align: center; line-height: 1.7;">
@@ -171,6 +167,7 @@
     </p>
   </section>
 
+  <!-- Serviços -->
   <section id="servicos">
     <h2 class="section-title">Nossos Serviços</h2>
     <div class="gallery" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
@@ -180,38 +177,52 @@
     </div>
   </section>
 
-  <!-- Galeria Nova -->
+  <!-- Galeria -->
   <section id="galeria">
     <h2 class="section-title">Galeria de Projetos</h2>
     <div class="gallery">
-      <div class="gallery-card">
-        <img src="usinagem 1.png" alt="Usinagem 1">
-        <div class="gallery-overlay">
-          <h3>Peça Usinada CNC</h3>
-        </div>
+      <div class="gallery-card" onclick="openImage('usinagem 1.png')">
+        <img src="usinagem 1.png" alt="Projeto 1">
       </div>
-      <div class="gallery-card">
-        <img src="usinagem 2.png" alt="Usinagem 2">
-        <div class="gallery-overlay">
-          <h3>Componente Industrial</h3>
-        </div>
+      <div class="gallery-card" onclick="openImage('usinagem 2.png')">
+        <img src="usinagem 2.png" alt="Projeto 2">
       </div>
     </div>
   </section>
 
-  <section id="comprar" style="background: var(--vermelho); text-align: center; padding: 110px 5% 120px;">
-    <h2 style="font-size: clamp(2.4rem, 7vw, 3.2rem); margin-bottom: 2rem;">Pronto para o próximo nível de precisão?</h2>
-    <a href="compra.html" class="btn" style="font-size: clamp(1.2rem, 4.5vw, 1.6rem); padding: 20px 50px;">
-      COMPRE CONOSCO
-    </a>
+  <!-- Nossa História -->
+  <section id="historia" style="background: #111;">
+    <h2 class="section-title">Nossa História</h2>
+    <p style="max-width: 800px; margin: 0 auto 3rem; font-size: clamp(1.1rem, 4vw, 1.3rem); text-align: center; line-height: 1.8;">
+      Atuamos no mercado há 10 anos, trabalhando com grandes empresas do setor industrial. 
+      Nossa missão é entregar peças com a mais alta precisão, qualidade e pontualidade.
+      <br><br>
+      (Você pode editar este texto depois)
+    </p>
+
+    <div style="text-align: center;">
+      <a href="https://www.youtube.com/shorts/IvC4r0tif6E" target="_blank" class="social-btn">
+        <i class="fab fa-instagram" style="font-size: 1.6rem;"></i>
+        Instagram
+      </a>
+      <a href="https://www.youtube.com/watch?v=LJHZ15s0Tus" target="_blank" class="social-btn">
+        <i class="fab fa-whatsapp" style="font-size: 1.6rem;"></i>
+        WhatsApp
+      </a>
+    </div>
   </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="" alt="">
+  </div>
 
   <footer style="background:#050505; padding: 3rem 5%; text-align:center;">
     <p>&copy; 2026 A3 Usinagem - Todos os direitos reservados</p>
   </footer>
 
   <script>
-    // Sparkles Brancos (mantido)
+    // Sparkles
     const canvas = document.getElementById('pixelRain');
     const ctx = canvas.getContext('2d');
     function resize() {
@@ -246,6 +257,12 @@
       requestAnimationFrame(animate);
     }
     animate();
+
+    // Lightbox
+    function openImage(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+    }
   </script>
 </body>
 </html>
