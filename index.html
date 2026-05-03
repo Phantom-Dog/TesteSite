@@ -73,7 +73,7 @@
     .hero p {
       font-size: clamp(1.1rem, 4vw, 1.35rem);
       max-width: 700px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 1.8rem;
       opacity: 0.9;
     }
 
@@ -89,16 +89,16 @@
     }
     .btn:hover { transform: translateY(-6px) scale(1.05); }
 
-    /* Seta animada */
+    /* Seta animada - AJUSTADA */
     .scroll-hint {
-      margin-top: 3rem;
-      animation: bounce 2s infinite;
-      font-size: 2.2rem;
+      margin-top: 1.2rem;        /* Reduzido o espaço */
+      font-size: 3.2rem;         /* Dobrado o tamanho */
       color: #e30613;
+      animation: bounce 2s infinite;
     }
     @keyframes bounce {
       0%, 20% { transform: translateY(0); }
-      50% { transform: translateY(15px); }
+      50% { transform: translateY(12px); }
       100% { transform: translateY(0); }
     }
 
@@ -127,26 +127,6 @@
     .service-card:hover {
       transform: translateY(-12px);
       border: 1px solid var(--vermelho);
-    }
-
-    /* Modal e Lightbox */
-    #modal, #lightbox {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.95);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-content {
-      background: #1a1a1a;
-      max-width: 600px;
-      border-radius: 16px;
-      padding: 2.5rem;
-      text-align: center;
     }
   </style>
 </head>
@@ -182,7 +162,6 @@
     </p>
   </section>
 
-  <!-- Serviços -->
   <section id="servicos">
     <h2 class="section-title">Nossos Serviços</h2>
     <div class="services-grid">
@@ -201,20 +180,18 @@
     </div>
   </section>
 
-  <!-- Galeria -->
   <section id="galeria">
     <h2 class="section-title">Galeria de Projetos</h2>
     <div class="services-grid">
-      <div class="gallery-card" onclick="openImage('usinagem 1.png')">
-        <img src="usinagem 1.png" alt="Projeto 1" style="width:100%; height:260px; object-fit:cover;">
+      <div class="service-card" onclick="openImage('usinagem 1.png')">
+        <img src="usinagem 1.png" alt="Projeto 1" style="width:100%; height:260px; object-fit:cover; border-radius:12px;">
       </div>
-      <div class="gallery-card" onclick="openImage('usinagem 2.png')">
-        <img src="usinagem 2.png" alt="Projeto 2" style="width:100%; height:260px; object-fit:cover;">
+      <div class="service-card" onclick="openImage('usinagem 2.png')">
+        <img src="usinagem 2.png" alt="Projeto 2" style="width:100%; height:260px; object-fit:cover; border-radius:12px;">
       </div>
     </div>
   </section>
 
-  <!-- Nossa História -->
   <section id="historia" style="background: #111;">
     <h2 class="section-title">Nossa História</h2>
     <p style="max-width: 800px; margin: 0 auto 3rem; font-size: clamp(1.1rem, 4vw, 1.3rem); text-align: center; line-height: 1.8;">
@@ -232,12 +209,11 @@
     </div>
   </section>
 
-  <!-- Modal -->
+  <!-- Modais -->
   <div id="modal" onclick="if(event.target === this) closeModal()">
     <div class="modal-content" id="modalContent"></div>
   </div>
 
-  <!-- Lightbox -->
   <div id="lightbox" onclick="this.style.display='none'">
     <img id="lightbox-img" src="" alt="">
   </div>
@@ -247,7 +223,7 @@
   </footer>
 
   <script>
-    // Sparkles (mantido)
+    // Sparkles
     const canvas = document.getElementById('pixelRain');
     const ctx = canvas.getContext('2d');
     function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -302,7 +278,6 @@
       document.getElementById('modal').style.display = 'none';
     }
 
-    // Lightbox
     function openImage(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
