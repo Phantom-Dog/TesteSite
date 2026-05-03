@@ -20,13 +20,13 @@
       overflow-x: hidden;
     }
 
-    /* Canvas Sparkles / Chuva de pixels */
+    /* Canvas Sparkles */
     #pixelRain {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
       z-index: -1;
-      opacity: 0.25;
+      opacity: 0.9;
       pointer-events: none;
     }
 
@@ -43,9 +43,7 @@
       border-bottom: 1px solid rgba(227,6,19,0.3);
     }
 
-    .logo img {
-      height: 52px;
-    }
+    .logo img { height: 52px; }
 
     nav a {
       color: white;
@@ -56,7 +54,6 @@
     }
     nav a:hover { color: var(--vermelho); }
 
-    /* Hero */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -97,10 +94,7 @@
       transform: translateY(-6px) scale(1.05);
     }
 
-    section { 
-      padding: 90px 5% 100px; 
-    }
-
+    section { padding: 90px 5% 100px; }
     .section-title {
       text-align: center;
       font-size: clamp(2.2rem, 6vw, 2.8rem);
@@ -127,7 +121,6 @@
       border-color: var(--vermelho);
     }
 
-    /* Ajuste específico para celular */
     @media (max-width: 768px) {
       header { padding: 1rem 4%; }
       nav a { margin-left: 1rem; font-size: 0.95rem; }
@@ -137,7 +130,7 @@
 </head>
 <body>
 
-  <!-- Sparkles Background -->
+  <!-- Sparkles Brancos -->
   <canvas id="pixelRain"></canvas>
 
   <!-- Header -->
@@ -154,7 +147,7 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-content">
+    <div>
       <h1>Precisão que <span class="highlight">move</span> indústrias</h1>
       <p>Usinagem de alta performance com tecnologia de ponta e qualidade certificada.</p>
       <a href="#comprar" class="btn">COMPRE CONOSCO</a>
@@ -206,7 +199,6 @@
   </footer>
 
   <script>
-    // Sparkles / Chuva de pixels mais visível
     const canvas = document.getElementById('pixelRain');
     const ctx = canvas.getContext('2d');
 
@@ -223,22 +215,25 @@
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height - 100;
-        this.speed = Math.random() * 3 + 1.2;
-        this.size = Math.random() * 3 + 1.5;
-        this.opacity = Math.random() * 0.6 + 0.4;
+        this.speed = Math.random() * 1.2 + 0.6;     // Velocidade mais lenta
+        this.size = Math.random() * 2.8 + 1.2;
+        this.opacity = Math.random() * 0.4 + 0.6;   // Opacidade 60%+
       }
       update() {
         this.y += this.speed;
         if (this.y > canvas.height) this.reset();
       }
       draw() {
-        ctx.fillStyle = '#e30613';
+        ctx.fillStyle = '#ffffff';                  // Branco fosco
         ctx.globalAlpha = this.opacity;
         ctx.fillRect(this.x, this.y, this.size, this.size);
       }
     }
 
-    for (let i = 0; i < 180; i++) pixels.push(new Pixel());
+    // Mais partículas
+    for (let i = 0; i < 280; i++) {
+      pixels.push(new Pixel());
+    }
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -249,7 +244,7 @@
 
     // Scroll suave
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', e => {
+      anchor.addEventListener('click', function(e) {
         e.preventDefault();
         document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
       });
