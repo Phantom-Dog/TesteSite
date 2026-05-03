@@ -118,10 +118,18 @@
       text-align: center;
       cursor: pointer;
       transition: 0.4s;
+      border: 1px solid #333;
     }
     .card:hover {
       transform: translateY(-12px);
-      border: 1px solid var(--vermelho);
+      border-color: var(--vermelho);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 12px;
     }
   </style>
 </head>
@@ -157,7 +165,7 @@
     </p>
   </section>
 
-  <!-- Serviços -->
+  <!-- Nossos Serviços -->
   <section id="servicos">
     <h2 class="section-title">Nossos Serviços</h2>
     <div class="grid">
@@ -181,10 +189,10 @@
     <h2 class="section-title">Galeria de Projetos</h2>
     <div class="grid">
       <div class="card" onclick="openImage('usinagem 1.png')">
-        <img src="usinagem 1.png" alt="Projeto 1" style="width:100%; height:260px; object-fit:cover; border-radius:12px;">
+        <img src="usinagem 1.png" alt="Projeto 1">
       </div>
       <div class="card" onclick="openImage('usinagem 2.png')">
-        <img src="usinagem 2.png" alt="Projeto 2" style="width:100%; height:260px; object-fit:cover; border-radius:12px;">
+        <img src="usinagem 2.png" alt="Projeto 2">
       </div>
     </div>
   </section>
@@ -207,11 +215,12 @@
     </div>
   </section>
 
-  <!-- Modais -->
+  <!-- Modal -->
   <div id="modal" onclick="if(event.target === this) closeModal()">
     <div class="modal-content" id="modalContent" style="background:#1a1a1a; max-width:600px; border-radius:16px; padding:2.5rem; text-align:center;"></div>
   </div>
 
+  <!-- Lightbox -->
   <div id="lightbox" onclick="this.style.display='none'">
     <img id="lightbox-img" src="" alt="">
   </div>
@@ -254,7 +263,7 @@
     }
     animate();
 
-    // Modal Serviços
+    // Modal de Serviços
     const services = [
       { title: "Usinagem CNC", icon: "fas fa-cogs", text: "Utilizamos máquinas CNC de última geração para produzir peças com precisão milimétrica." },
       { title: "Peças Especiais", icon: "fas fa-industry", text: "Desenvolvemos e fabricamos peças sob medida conforme o projeto do cliente." },
