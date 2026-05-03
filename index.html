@@ -63,11 +63,7 @@
       padding: 130px 15px 60px;
     }
 
-    .hero h1 {
-      font-size: clamp(2.8rem, 8.5vw, 5.2rem);
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
+    .hero h1 { font-size: clamp(2.8rem, 8.5vw, 5.2rem); line-height: 1.1; margin-bottom: 1rem; }
     .hero .highlight { color: var(--vermelho); }
 
     .hero p {
@@ -89,16 +85,15 @@
     }
     .btn:hover { transform: translateY(-6px) scale(1.05); }
 
-    /* Seta maior e mais próxima */
     .scroll-hint {
-      margin-top: 1rem;
+      margin-top: 1.2rem;
       font-size: 3.5rem;
       color: #e30613;
       animation: bounce 2s infinite;
     }
     @keyframes bounce {
       0%, 20% { transform: translateY(0); }
-      50% { transform: translateY(12px); }
+      50% { transform: translateY(15px); }
       100% { transform: translateY(0); }
     }
 
@@ -110,27 +105,23 @@
       color: var(--vermelho);
     }
 
-    .services-grid, .gallery {
+    .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.8rem;
     }
 
-    .service-card, .gallery-card {
+    .card {
       background: #1a1a1a;
+      padding: 2rem;
       border-radius: 16px;
-      overflow: hidden;
+      text-align: center;
       cursor: pointer;
       transition: 0.4s;
     }
-    .service-card:hover, .gallery-card:hover {
+    .card:hover {
       transform: translateY(-12px);
-    }
-
-    .gallery-card img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
+      border: 1px solid var(--vermelho);
     }
   </style>
 </head>
@@ -169,17 +160,17 @@
   <!-- Serviços -->
   <section id="servicos">
     <h2 class="section-title">Nossos Serviços</h2>
-    <div class="services-grid">
-      <div class="service-card" onclick="showService(0)">
-        <i class="fas fa-cogs" style="font-size:3.5rem; color:var(--vermelho); margin:1.5rem 0 1rem;"></i>
+    <div class="grid">
+      <div class="card" onclick="showService(0)">
+        <i class="fas fa-cogs" style="font-size:3.5rem; color:var(--vermelho); margin-bottom:1rem;"></i>
         <h3>Usinagem CNC</h3>
       </div>
-      <div class="service-card" onclick="showService(1)">
-        <i class="fas fa-industry" style="font-size:3.5rem; color:var(--vermelho); margin:1.5rem 0 1rem;"></i>
+      <div class="card" onclick="showService(1)">
+        <i class="fas fa-industry" style="font-size:3.5rem; color:var(--vermelho); margin-bottom:1rem;"></i>
         <h3>Peças Especiais</h3>
       </div>
-      <div class="service-card" onclick="showService(2)">
-        <i class="fas fa-tools" style="font-size:3.5rem; color:var(--vermelho); margin:1.5rem 0 1rem;"></i>
+      <div class="card" onclick="showService(2)">
+        <i class="fas fa-tools" style="font-size:3.5rem; color:var(--vermelho); margin-bottom:1rem;"></i>
         <h3>Manutenção</h3>
       </div>
     </div>
@@ -188,12 +179,12 @@
   <!-- Galeria -->
   <section id="galeria">
     <h2 class="section-title">Galeria de Projetos</h2>
-    <div class="services-grid">
-      <div class="gallery-card" onclick="openImage('usinagem 1.png')">
-        <img src="usinagem 1.png" alt="Projeto 1">
+    <div class="grid">
+      <div class="card" onclick="openImage('usinagem 1.png')">
+        <img src="usinagem 1.png" alt="Projeto 1" style="width:100%; height:260px; object-fit:cover; border-radius:12px;">
       </div>
-      <div class="gallery-card" onclick="openImage('usinagem 2.png')">
-        <img src="usinagem 2.png" alt="Projeto 2">
+      <div class="card" onclick="openImage('usinagem 2.png')">
+        <img src="usinagem 2.png" alt="Projeto 2" style="width:100%; height:260px; object-fit:cover; border-radius:12px;">
       </div>
     </div>
   </section>
@@ -216,12 +207,11 @@
     </div>
   </section>
 
-  <!-- Modal Serviços -->
+  <!-- Modais -->
   <div id="modal" onclick="if(event.target === this) closeModal()">
     <div class="modal-content" id="modalContent" style="background:#1a1a1a; max-width:600px; border-radius:16px; padding:2.5rem; text-align:center;"></div>
   </div>
 
-  <!-- Lightbox Galeria -->
   <div id="lightbox" onclick="this.style.display='none'">
     <img id="lightbox-img" src="" alt="">
   </div>
