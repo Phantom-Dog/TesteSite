@@ -89,7 +89,6 @@
     }
     .btn:hover { transform: translateY(-6px) scale(1.05); }
 
-    /* Seta animada */
     .scroll-hint {
       margin-top: 3rem;
       animation: bounce 2s infinite;
@@ -127,26 +126,6 @@
     .service-card:hover {
       transform: translateY(-12px);
       border: 1px solid var(--vermelho);
-    }
-
-    /* Modal e Lightbox */
-    #modal, #lightbox {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.95);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-content {
-      background: #1a1a1a;
-      max-width: 600px;
-      border-radius: 16px;
-      padding: 2.5rem;
-      text-align: center;
     }
   </style>
 </head>
@@ -222,13 +201,29 @@
       Nossa missão é entregar peças com a mais alta precisão, qualidade e pontualidade.
     </p>
 
-    <div style="text-align: center; margin-top: 2rem;">
-      <a href="https://www.youtube.com/shorts/IvC4r0tif6E" target="_blank" class="btn">
-        <i class="fab fa-instagram"></i> Instagram
+    <!-- BOTÕES CORRIGIDOS -->
+    <div style="text-align: center; margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+      
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/seuinstagram" target="_blank" 
+         style="background: #e30613; color: white; padding: 16px 32px; border-radius: 50px; 
+                font-size: 1.15rem; font-weight: bold; text-decoration: none; 
+                display: inline-flex; align-items: center; gap: 10px; min-width: 170px; 
+                justify-content: center;">
+        <i class="fab fa-instagram" style="font-size: 1.5rem;"></i>
+        Instagram
       </a>
-      <a href="https://www.youtube.com/watch?v=LJHZ15s0Tus" target="_blank" class="btn">
-        <i class="fab fa-whatsapp"></i> WhatsApp
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/5538999999999?text=Olá%20A3%20Usinagem" target="_blank" 
+         style="background: #25D366; color: white; padding: 16px 32px; border-radius: 50px; 
+                font-size: 1.15rem; font-weight: bold; text-decoration: none; 
+                display: inline-flex; align-items: center; gap: 10px; min-width: 170px; 
+                justify-content: center;">
+        <i class="fab fa-whatsapp" style="font-size: 1.6rem;"></i>
+        WhatsApp
       </a>
+
     </div>
   </section>
 
@@ -247,7 +242,7 @@
   </footer>
 
   <script>
-    // Sparkles (mantido)
+    // Pixel Rain
     const canvas = document.getElementById('pixelRain');
     const ctx = canvas.getContext('2d');
     function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
