@@ -53,11 +53,29 @@
     }
     nav a:hover { color: var(--vermelho); }
 
-    .hero, section { padding: 90px 5% 100px; }
-    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: 120px 15px 80px;
+    }
 
-    .hero h1 { font-size: clamp(2.8rem, 8.5vw, 5.2rem); line-height: 1.1; margin-bottom: 1.2rem; }
+    .hero h1 {
+      font-size: clamp(2.8rem, 8.5vw, 5.2rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
     .hero .highlight { color: var(--vermelho); }
+
+    .hero p {
+      font-size: clamp(1.1rem, 4vw, 1.35rem);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
 
     .btn {
       background: var(--vermelho);
@@ -68,10 +86,10 @@
       font-weight: bold;
       text-decoration: none;
       transition: all 0.4s;
-      margin: 10px;
     }
     .btn:hover { transform: translateY(-6px) scale(1.05); }
 
+    section { padding: 100px 5%; }
     .section-title {
       text-align: center;
       font-size: clamp(2.2rem, 6vw, 2.8rem);
@@ -79,12 +97,12 @@
       color: var(--vermelho);
     }
 
-    /* Galeria Clickable */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.8rem;
     }
+
     .gallery-card {
       position: relative;
       border-radius: 12px;
@@ -118,21 +136,10 @@
       border-radius: 8px;
     }
 
-    /* Social Buttons */
-    .social-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: #1a1a1a;
-      padding: 14px 28px;
-      border-radius: 50px;
-      color: white;
-      text-decoration: none;
-      font-size: 1.1rem;
-      margin: 10px;
-      transition: 0.3s;
+    @media (max-width: 768px) {
+      .hero { padding-top: 100px; }
+      section { padding: 80px 6%; }
     }
-    .social-btn:hover { background: #333; transform: scale(1.05); }
   </style>
 </head>
 <body>
@@ -171,9 +178,18 @@
   <section id="servicos">
     <h2 class="section-title">Nossos Serviços</h2>
     <div class="gallery" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-      <div class="card"><i class="fas fa-cogs"></i><h3>Usinagem CNC</h3></div>
-      <div class="card"><i class="fas fa-industry"></i><h3>Peças Especiais</h3></div>
-      <div class="card"><i class="fas fa-tools"></i><h3>Manutenção</h3></div>
+      <div class="gallery-card" style="height: 220px; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#1a1a1a;">
+        <i class="fas fa-cogs" style="font-size:3rem; color:var(--vermelho); margin-bottom:15px;"></i>
+        <h3>Usinagem CNC</h3>
+      </div>
+      <div class="gallery-card" style="height: 220px; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#1a1a1a;">
+        <i class="fas fa-industry" style="font-size:3rem; color:var(--vermelho); margin-bottom:15px;"></i>
+        <h3>Peças Especiais</h3>
+      </div>
+      <div class="gallery-card" style="height: 220px; display:flex; align-items:center; justify-content:center; flex-direction:column; background:#1a1a1a;">
+        <i class="fas fa-tools" style="font-size:3rem; color:var(--vermelho); margin-bottom:15px;"></i>
+        <h3>Manutenção</h3>
+      </div>
     </div>
   </section>
 
@@ -201,13 +217,11 @@
     </p>
 
     <div style="text-align: center;">
-      <a href="https://www.youtube.com/shorts/IvC4r0tif6E" target="_blank" class="social-btn">
-        <i class="fab fa-instagram" style="font-size: 1.6rem;"></i>
-        Instagram
+      <a href="https://www.youtube.com/shorts/IvC4r0tif6E" target="_blank" class="btn">
+        <i class="fab fa-instagram"></i> Instagram
       </a>
-      <a href="https://www.youtube.com/watch?v=LJHZ15s0Tus" target="_blank" class="social-btn">
-        <i class="fab fa-whatsapp" style="font-size: 1.6rem;"></i>
-        WhatsApp
+      <a href="https://www.youtube.com/watch?v=LJHZ15s0Tus" target="_blank" class="btn">
+        <i class="fab fa-whatsapp"></i> WhatsApp
       </a>
     </div>
   </section>
@@ -258,7 +272,6 @@
     }
     animate();
 
-    // Lightbox
     function openImage(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
