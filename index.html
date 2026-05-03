@@ -20,7 +20,7 @@
       overflow-x: hidden;
     }
 
-    /* Canvas Sparkles */
+    /* Sparkles Brancos */
     #pixelRain {
       position: fixed;
       top: 0; left: 0;
@@ -69,7 +69,6 @@
       line-height: 1.1;
       margin-bottom: 1.2rem;
     }
-
     .hero .highlight { color: var(--vermelho); }
 
     .hero p {
@@ -88,11 +87,8 @@
       font-weight: bold;
       text-decoration: none;
       transition: all 0.4s;
-      box-shadow: 0 8px 25px rgba(227,6,19,0.4);
     }
-    .btn:hover {
-      transform: translateY(-6px) scale(1.05);
-    }
+    .btn:hover { transform: translateY(-6px) scale(1.05); }
 
     section { padding: 90px 5% 100px; }
     .section-title {
@@ -102,38 +98,52 @@
       color: var(--vermelho);
     }
 
-    .cards {
+    .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.8rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
     }
 
-    .card {
-      background: #1a1a1a;
-      padding: 2.5rem 1.8rem;
-      border-radius: 16px;
-      text-align: center;
+    .gallery-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 280px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       transition: 0.4s;
-      border: 1px solid #333;
     }
-    .card:hover {
-      transform: translateY(-15px);
-      border-color: var(--vermelho);
+    .gallery-card:hover {
+      transform: scale(1.04);
+    }
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+    .gallery-card:hover img {
+      transform: scale(1.1);
+    }
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      padding: 25px 20px 20px;
+      color: white;
     }
 
     @media (max-width: 768px) {
-      header { padding: 1rem 4%; }
-      nav a { margin-left: 1rem; font-size: 0.95rem; }
       section { padding: 70px 6% 80px; }
+      .gallery-card { height: 240px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Sparkles Brancos -->
   <canvas id="pixelRain"></canvas>
 
-  <!-- Header -->
   <header>
     <div class="logo">
       <img src="logotipo" alt="A3 Usinagem">
@@ -141,11 +151,11 @@
     <nav>
       <a href="#sobre">Sobre</a>
       <a href="#servicos">Serviços</a>
+      <a href="#galeria">Galeria</a>
       <a href="#comprar">Compre Conosco</a>
     </nav>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div>
       <h1>Precisão que <span class="highlight">move</span> indústrias</h1>
@@ -154,54 +164,56 @@
     </div>
   </section>
 
-  <!-- Sobre -->
   <section id="sobre">
     <h2 class="section-title">A3 Usinagem</h2>
     <p style="max-width: 800px; margin: 0 auto; font-size: clamp(1.1rem, 4vw, 1.3rem); text-align: center; line-height: 1.7;">
-      Especializada em usinagem CNC de precisão, fabricamos peças com excelência para os mais exigentes segmentos industriais há anos.
+      Especializada em usinagem CNC de precisão, fabricamos peças com excelência para os mais exigentes segmentos industriais.
     </p>
   </section>
 
-  <!-- Serviços -->
   <section id="servicos">
     <h2 class="section-title">Nossos Serviços</h2>
-    <div class="cards">
-      <div class="card">
-        <i class="fas fa-cogs"></i>
-        <h3>Usinagem CNC</h3>
-        <p>Torneamento, fresamento 3 e 5 eixos com precisão milimétrica.</p>
+    <div class="gallery" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+      <div class="card"><i class="fas fa-cogs"></i><h3>Usinagem CNC</h3></div>
+      <div class="card"><i class="fas fa-industry"></i><h3>Peças Especiais</h3></div>
+      <div class="card"><i class="fas fa-tools"></i><h3>Manutenção</h3></div>
+    </div>
+  </section>
+
+  <!-- Galeria Nova -->
+  <section id="galeria">
+    <h2 class="section-title">Galeria de Projetos</h2>
+    <div class="gallery">
+      <div class="gallery-card">
+        <img src="usinagem 1.png" alt="Usinagem 1">
+        <div class="gallery-overlay">
+          <h3>Peça Usinada CNC</h3>
+        </div>
       </div>
-      <div class="card">
-        <i class="fas fa-industry"></i>
-        <h3>Peças Especiais</h3>
-        <p>Desenvolvimento e produção sob medida conforme sua necessidade.</p>
-      </div>
-      <div class="card">
-        <i class="fas fa-tools"></i>
-        <h3>Manutenção e Recuperação</h3>
-        <p>Recuperação de componentes industriais com alta qualidade.</p>
+      <div class="gallery-card">
+        <img src="usinagem 2.png" alt="Usinagem 2">
+        <div class="gallery-overlay">
+          <h3>Componente Industrial</h3>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Compre Conosco -->
   <section id="comprar" style="background: var(--vermelho); text-align: center; padding: 110px 5% 120px;">
-    <h2 style="font-size: clamp(2.4rem, 7vw, 3.2rem); margin-bottom: 2rem; line-height: 1.2;">
-      Pronto para o próximo nível de precisão?
-    </h2>
+    <h2 style="font-size: clamp(2.4rem, 7vw, 3.2rem); margin-bottom: 2rem;">Pronto para o próximo nível de precisão?</h2>
     <a href="compra.html" class="btn" style="font-size: clamp(1.2rem, 4.5vw, 1.6rem); padding: 20px 50px;">
       COMPRE CONOSCO
     </a>
   </section>
 
-  <footer style="background:#050505; padding: 3rem 5%; text-align:center; font-size:0.95rem;">
+  <footer style="background:#050505; padding: 3rem 5%; text-align:center;">
     <p>&copy; 2026 A3 Usinagem - Todos os direitos reservados</p>
   </footer>
 
   <script>
+    // Sparkles Brancos (mantido)
     const canvas = document.getElementById('pixelRain');
     const ctx = canvas.getContext('2d');
-
     function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -215,25 +227,18 @@
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height - 100;
-        this.speed = Math.random() * 1.2 + 0.6;     // Velocidade mais lenta
+        this.speed = Math.random() * 1.2 + 0.6;
         this.size = Math.random() * 2.8 + 1.2;
-        this.opacity = Math.random() * 0.4 + 0.6;   // Opacidade 60%+
+        this.opacity = Math.random() * 0.4 + 0.6;
       }
-      update() {
-        this.y += this.speed;
-        if (this.y > canvas.height) this.reset();
-      }
+      update() { this.y += this.speed; if (this.y > canvas.height) this.reset(); }
       draw() {
-        ctx.fillStyle = '#ffffff';                  // Branco fosco
+        ctx.fillStyle = '#ffffff';
         ctx.globalAlpha = this.opacity;
         ctx.fillRect(this.x, this.y, this.size, this.size);
       }
     }
-
-    // Mais partículas
-    for (let i = 0; i < 280; i++) {
-      pixels.push(new Pixel());
-    }
+    for (let i = 0; i < 280; i++) pixels.push(new Pixel());
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -241,14 +246,6 @@
       requestAnimationFrame(animate);
     }
     animate();
-
-    // Scroll suave
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-      });
-    });
   </script>
 </body>
 </html>
