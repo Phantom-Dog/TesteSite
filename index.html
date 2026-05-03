@@ -55,11 +55,12 @@
     .hero {
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       position: relative;
-      padding: 130px 15px 80px;
+      padding: 130px 15px 60px;
     }
 
     .hero h1 {
@@ -88,6 +89,19 @@
     }
     .btn:hover { transform: translateY(-6px) scale(1.05); }
 
+    /* Seta animada */
+    .scroll-hint {
+      margin-top: 3rem;
+      animation: bounce 2s infinite;
+      font-size: 2.2rem;
+      color: #e30613;
+    }
+    @keyframes bounce {
+      0%, 20% { transform: translateY(0); }
+      50% { transform: translateY(15px); }
+      100% { transform: translateY(0); }
+    }
+
     section { padding: 100px 5%; }
     .section-title {
       text-align: center;
@@ -96,31 +110,27 @@
       color: var(--vermelho);
     }
 
-    .services-grid, .gallery {
+    .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.8rem;
     }
 
-    .service-card, .gallery-card {
+    .service-card {
       background: #1a1a1a;
+      padding: 2.2rem 1.5rem;
       border-radius: 16px;
-      overflow: hidden;
+      text-align: center;
       cursor: pointer;
       transition: 0.4s;
     }
-    .service-card:hover, .gallery-card:hover {
+    .service-card:hover {
       transform: translateY(-12px);
+      border: 1px solid var(--vermelho);
     }
 
-    .gallery-card img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-    }
-
-    /* Modal */
-    #modal {
+    /* Modal e Lightbox */
+    #modal, #lightbox {
       display: none;
       position: fixed;
       top: 0; left: 0;
@@ -161,6 +171,7 @@
       <h1>Precisão que <span class="highlight">move</span> indústrias</h1>
       <p>Usinagem de alta performance com tecnologia de ponta e qualidade certificada.</p>
       <a href="#historia" class="btn">SAIBA MAIS</a>
+      <div class="scroll-hint">↓</div>
     </div>
   </section>
 
@@ -176,15 +187,15 @@
     <h2 class="section-title">Nossos Serviços</h2>
     <div class="services-grid">
       <div class="service-card" onclick="showService(0)">
-        <i class="fas fa-cogs" style="font-size:3.5rem; color:var(--vermelho); padding:2rem 0 1rem;"></i>
+        <i class="fas fa-cogs" style="font-size:3.5rem; color:var(--vermelho); margin-bottom:1rem;"></i>
         <h3>Usinagem CNC</h3>
       </div>
       <div class="service-card" onclick="showService(1)">
-        <i class="fas fa-industry" style="font-size:3.5rem; color:var(--vermelho); padding:2rem 0 1rem;"></i>
+        <i class="fas fa-industry" style="font-size:3.5rem; color:var(--vermelho); margin-bottom:1rem;"></i>
         <h3>Peças Especiais</h3>
       </div>
       <div class="service-card" onclick="showService(2)">
-        <i class="fas fa-tools" style="font-size:3.5rem; color:var(--vermelho); padding:2rem 0 1rem;"></i>
+        <i class="fas fa-tools" style="font-size:3.5rem; color:var(--vermelho); margin-bottom:1rem;"></i>
         <h3>Manutenção</h3>
       </div>
     </div>
@@ -193,12 +204,12 @@
   <!-- Galeria -->
   <section id="galeria">
     <h2 class="section-title">Galeria de Projetos</h2>
-    <div class="gallery">
+    <div class="services-grid">
       <div class="gallery-card" onclick="openImage('usinagem 1.png')">
-        <img src="usinagem 1.png" alt="Projeto 1">
+        <img src="usinagem 1.png" alt="Projeto 1" style="width:100%; height:260px; object-fit:cover;">
       </div>
       <div class="gallery-card" onclick="openImage('usinagem 2.png')">
-        <img src="usinagem 2.png" alt="Projeto 2">
+        <img src="usinagem 2.png" alt="Projeto 2" style="width:100%; height:260px; object-fit:cover;">
       </div>
     </div>
   </section>
@@ -221,12 +232,12 @@
     </div>
   </section>
 
-  <!-- Modal Serviços -->
+  <!-- Modal -->
   <div id="modal" onclick="if(event.target === this) closeModal()">
     <div class="modal-content" id="modalContent"></div>
   </div>
 
-  <!-- Lightbox Galeria -->
+  <!-- Lightbox -->
   <div id="lightbox" onclick="this.style.display='none'">
     <img id="lightbox-img" src="" alt="">
   </div>
@@ -236,13 +247,10 @@
   </footer>
 
   <script>
-    // Sparkles
+    // Sparkles (mantido)
     const canvas = document.getElementById('pixelRain');
     const ctx = canvas.getContext('2d');
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     window.addEventListener('resize', resize);
     resize();
 
@@ -294,7 +302,7 @@
       document.getElementById('modal').style.display = 'none';
     }
 
-    // Lightbox Galeria
+    // Lightbox
     function openImage(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
