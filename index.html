@@ -128,7 +128,7 @@
       border: 1px solid var(--vermelho);
     }
 
-    /* === MODAL E LIGHTBOX (CORRIGIDO) === */
+    /* MODAL E LIGHTBOX */
     #modal, #lightbox {
       display: none;
       position: fixed;
@@ -156,11 +156,39 @@
       padding: 20px;
     }
 
+    #lightbox-content {
+      position: relative;
+      display: inline-block;
+    }
+
     #lightbox-img {
       max-width: 100%;
       max-height: 90vh;
       border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background: #e30613;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(227,6,19,0.4);
+      transition: all 0.3s;
+      z-index: 2010;
+    }
+    .close-btn:hover {
+      background: #ff1a2e;
+      transform: scale(1.1);
     }
   </style>
 </head>
@@ -257,14 +285,17 @@
     </div>
   </section>
 
-  <!-- MODAL (Serviços) -->
+  <!-- MODAL Serviços -->
   <div id="modal" onclick="if(event.target === this) closeModal()">
     <div class="modal-content" id="modalContent"></div>
   </div>
 
-  <!-- LIGHTBOX (Galeria) -->
-  <div id="lightbox" onclick="this.style.display='none'">
-    <img id="lightbox-img" src="" alt="">
+  <!-- LIGHTBOX Galeria com botão Fechar -->
+  <div id="lightbox" onclick="if(event.target === this) closeLightbox()">
+    <div id="lightbox-content">
+      <div class="close-btn" onclick="closeLightbox()">✕</div>
+      <img id="lightbox-img" src="" alt="">
+    </div>
   </div>
 
   <footer style="background:#050505; padding: 3rem 5%; text-align:center;">
@@ -272,7 +303,7 @@
   </footer>
 
   <script>
-    // Pixel Rain
+    // Pixel Rain (mantido)
     const canvas = document.getElementById('pixelRain');
     const ctx = canvas.getContext('2d');
     function resize() { 
@@ -308,7 +339,7 @@
     }
     animate();
 
-    // Modal de Serviços
+    // Modal Serviços
     const services = [
       { title: "Usinagem CNC", icon: "fas fa-cogs", text: "Utilizamos máquinas CNC de última geração para produzir peças com precisão milimétrica." },
       { title: "Peças Especiais", icon: "fas fa-industry", text: "Desenvolvemos e fabricamos peças sob medida conforme o projeto do cliente." },
@@ -330,10 +361,14 @@
       document.getElementById('modal').style.display = 'none';
     }
 
-    // Lightbox da Galeria
+    // Lightbox com botão Fechar
     function openImage(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
     }
   </script>
 </body>
