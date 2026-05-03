@@ -49,7 +49,6 @@
       text-decoration: none;
       margin-left: 1.6rem;
       font-weight: 500;
-      transition: 0.3s;
     }
     nav a:hover { color: var(--vermelho); }
 
@@ -60,22 +59,32 @@
       justify-content: center;
       text-align: center;
       position: relative;
-      padding: 120px 15px 80px;
+      padding: 130px 15px 80px;
     }
 
-    .hero h1 { font-size: clamp(2.8rem, 8.5vw, 5.2rem); line-height: 1.1; margin-bottom: 1rem; }
+    .hero h1 {
+      font-size: clamp(2.8rem, 8.5vw, 5.2rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
     .hero .highlight { color: var(--vermelho); }
+
+    .hero p {
+      font-size: clamp(1.1rem, 4vw, 1.35rem);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
 
     .btn {
       background: var(--vermelho);
       color: white;
-      padding: 16px 40px;
+      padding: 16px 42px;
       border-radius: 50px;
       font-size: clamp(1.1rem, 4vw, 1.3rem);
       font-weight: bold;
       text-decoration: none;
       transition: all 0.4s;
-      margin: 8px;
     }
     .btn:hover { transform: translateY(-6px) scale(1.05); }
 
@@ -87,28 +96,31 @@
       color: var(--vermelho);
     }
 
-    .services-grid {
+    .services-grid, .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.8rem;
     }
 
-    .service-card {
+    .service-card, .gallery-card {
       background: #1a1a1a;
-      padding: 2rem;
       border-radius: 16px;
-      text-align: center;
+      overflow: hidden;
       cursor: pointer;
       transition: 0.4s;
-      border: 1px solid #333;
     }
-    .service-card:hover {
-      transform: translateY(-15px);
-      border-color: var(--vermelho);
+    .service-card:hover, .gallery-card:hover {
+      transform: translateY(-12px);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
     }
 
     /* Modal */
-    #serviceModal {
+    #modal {
       display: none;
       position: fixed;
       top: 0; left: 0;
@@ -125,19 +137,6 @@
       border-radius: 16px;
       padding: 2.5rem;
       text-align: center;
-    }
-
-    .social-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: #1a1a1a;
-      padding: 14px 28px;
-      border-radius: 50px;
-      color: white;
-      text-decoration: none;
-      font-size: 1.1rem;
-      margin: 10px;
     }
   </style>
 </head>
@@ -172,20 +171,20 @@
     </p>
   </section>
 
-  <!-- Serviços com Modal -->
+  <!-- Serviços -->
   <section id="servicos">
     <h2 class="section-title">Nossos Serviços</h2>
     <div class="services-grid">
       <div class="service-card" onclick="showService(0)">
-        <i class="fas fa-cogs" style="font-size:3.2rem; color:var(--vermelho); margin-bottom:1rem;"></i>
+        <i class="fas fa-cogs" style="font-size:3.5rem; color:var(--vermelho); padding:2rem 0 1rem;"></i>
         <h3>Usinagem CNC</h3>
       </div>
       <div class="service-card" onclick="showService(1)">
-        <i class="fas fa-industry" style="font-size:3.2rem; color:var(--vermelho); margin-bottom:1rem;"></i>
+        <i class="fas fa-industry" style="font-size:3.5rem; color:var(--vermelho); padding:2rem 0 1rem;"></i>
         <h3>Peças Especiais</h3>
       </div>
       <div class="service-card" onclick="showService(2)">
-        <i class="fas fa-tools" style="font-size:3.2rem; color:var(--vermelho); margin-bottom:1rem;"></i>
+        <i class="fas fa-tools" style="font-size:3.5rem; color:var(--vermelho); padding:2rem 0 1rem;"></i>
         <h3>Manutenção</h3>
       </div>
     </div>
@@ -194,7 +193,7 @@
   <!-- Galeria -->
   <section id="galeria">
     <h2 class="section-title">Galeria de Projetos</h2>
-    <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.8rem;">
+    <div class="gallery">
       <div class="gallery-card" onclick="openImage('usinagem 1.png')">
         <img src="usinagem 1.png" alt="Projeto 1">
       </div>
@@ -212,24 +211,22 @@
       Nossa missão é entregar peças com a mais alta precisão, qualidade e pontualidade.
     </p>
 
-    <div style="text-align: center;">
-      <a href="https://www.youtube.com/shorts/IvC4r0tif6E" target="_blank" class="social-btn">
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="https://www.youtube.com/shorts/IvC4r0tif6E" target="_blank" class="btn">
         <i class="fab fa-instagram"></i> Instagram
       </a>
-      <a href="https://www.youtube.com/watch?v=LJHZ15s0Tus" target="_blank" class="social-btn">
+      <a href="https://www.youtube.com/watch?v=LJHZ15s0Tus" target="_blank" class="btn">
         <i class="fab fa-whatsapp"></i> WhatsApp
       </a>
     </div>
   </section>
 
-  <!-- Modal de Serviços -->
-  <div id="serviceModal">
-    <div class="modal-content" id="modalContent">
-      <!-- Conteúdo é inserido via JavaScript -->
-    </div>
+  <!-- Modal Serviços -->
+  <div id="modal" onclick="if(event.target === this) closeModal()">
+    <div class="modal-content" id="modalContent"></div>
   </div>
 
-  <!-- Lightbox para imagens -->
+  <!-- Lightbox Galeria -->
   <div id="lightbox" onclick="this.style.display='none'">
     <img id="lightbox-img" src="" alt="">
   </div>
@@ -239,10 +236,13 @@
   </footer>
 
   <script>
-    // Sparkles (mantido)
+    // Sparkles
     const canvas = document.getElementById('pixelRain');
     const ctx = canvas.getContext('2d');
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
     window.addEventListener('resize', resize);
     resize();
 
@@ -272,50 +272,33 @@
     }
     animate();
 
-    // Modal de Serviços
+    // Modal Serviços
     const services = [
-      {
-        title: "Usinagem CNC",
-        icon: "fas fa-cogs",
-        text: "Utilizamos máquinas CNC de última geração para produzir peças com precisão milimétrica, atendendo os mais altos padrões da indústria."
-      },
-      {
-        title: "Peças Especiais",
-        icon: "fas fa-industry",
-        text: "Desenvolvemos e fabricamos peças sob medida conforme o projeto do cliente, desde protótipos até produção em série."
-      },
-      {
-        title: "Manutenção",
-        icon: "fas fa-tools",
-        text: "Realizamos recuperação e manutenção de componentes industriais, aumentando a vida útil das máquinas com qualidade profissional."
-      }
+      { title: "Usinagem CNC", icon: "fas fa-cogs", text: "Utilizamos máquinas CNC de última geração para produzir peças com precisão milimétrica." },
+      { title: "Peças Especiais", icon: "fas fa-industry", text: "Desenvolvemos e fabricamos peças sob medida conforme o projeto do cliente." },
+      { title: "Manutenção", icon: "fas fa-tools", text: "Recuperação e manutenção de componentes industriais com alta qualidade." }
     ];
 
-    function showService(index) {
-      const service = services[index];
+    function showService(i) {
+      const s = services[i];
       document.getElementById('modalContent').innerHTML = `
-        <i class="${service.icon}" style="font-size:4rem; color:var(--vermelho); margin-bottom:1.5rem;"></i>
-        <h2 style="margin-bottom:1.5rem; color:var(--vermelho);">${service.title}</h2>
-        <p style="font-size:1.1rem; line-height:1.7;">${service.text}</p>
-        <button onclick="closeModal()" style="margin-top:2rem; padding:12px 30px; background:#333; border:none; border-radius:50px; color:white; font-size:1rem;">Fechar</button>
+        <i class="${s.icon}" style="font-size:4rem;color:#e30613;margin-bottom:1.5rem;"></i>
+        <h2 style="color:#e30613;margin-bottom:1rem;">${s.title}</h2>
+        <p style="font-size:1.1rem;line-height:1.7;">${s.text}</p>
+        <button onclick="closeModal()" style="margin-top:2rem;padding:12px 32px;background:#333;border:none;border-radius:50px;color:white;">Fechar</button>
       `;
-      document.getElementById('serviceModal').style.display = 'flex';
+      document.getElementById('modal').style.display = 'flex';
     }
 
     function closeModal() {
-      document.getElementById('serviceModal').style.display = 'none';
+      document.getElementById('modal').style.display = 'none';
     }
 
-    // Lightbox
+    // Lightbox Galeria
     function openImage(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
     }
-
-    // Fechar lightbox ao clicar fora
-    document.getElementById('lightbox').addEventListener('click', function(e) {
-      if (e.target === this) this.style.display = 'none';
-    });
   </script>
 </body>
 </html>
