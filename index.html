@@ -20,6 +20,34 @@
       overflow-x: hidden;
     }
 
+    /* Engrenagens laterais girando */
+    .gear-left, .gear-right {
+      position: fixed;
+      top: 25%;
+      font-size: 4.5rem;
+      color: rgba(227, 6, 19, 0.12);
+      z-index: -1;
+      pointer-events: none;
+      animation: spin 25s linear infinite;
+    }
+
+    .gear-left {
+      left: 5%;
+    }
+
+    .gear-right {
+      right: 5%;
+      animation-duration: 18s;
+      animation-direction: reverse;
+      font-size: 3.8rem;
+      top: 45%;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     header {
       position: fixed;
       top: 0; width: 100%;
@@ -143,15 +171,6 @@
       position: relative;
     }
 
-    #lightbox {
-      padding: 20px;
-    }
-
-    #lightbox-content {
-      position: relative;
-      display: inline-block;
-    }
-
     #lightbox-img {
       max-width: 100%;
       max-height: 90vh;
@@ -184,6 +203,10 @@
   </style>
 </head>
 <body>
+
+  <!-- Engrenagens decorativas -->
+  <i class="fas fa-cog gear-left"></i>
+  <i class="fas fa-cog gear-right"></i>
 
   <header>
     <div class="logo">
@@ -279,7 +302,7 @@
     <div class="modal-content" id="modalContent"></div>
   </div>
 
-  <!-- LIGHTBOX Galeria -->
+  <!-- LIGHTBOX -->
   <div id="lightbox" onclick="if(event.target === this) closeLightbox()">
     <div id="lightbox-content">
       <div class="close-btn" onclick="closeLightbox()">✕</div>
