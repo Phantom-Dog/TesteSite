@@ -65,22 +65,33 @@
 
     .gear {
       position: absolute;
-      color: rgba(227, 6, 19, 0.28);
-      filter: drop-shadow(0 0 20px rgba(227,6,19,0.35));
+      color: var(--vermelho);
+      filter: drop-shadow(0 0 25px rgba(227,6,19,0.6));
       transition: transform 0.1s linear;
     }
 
     .gear1 {
       font-size: 14rem;
-      top: 10%;
-      left: -5%;
+      top: 8%;
+      left: -4%;
     }
 
     .gear2 {
       font-size: 11rem;
-      bottom: 12%;
-      right: -6%;
-      color: rgba(227, 6, 19, 0.22);
+      bottom: 15%;
+      right: -5%;
+    }
+
+    /* Nova engrenagem abaixo do Hero */
+    .gear-extra {
+      position: absolute;
+      font-size: 7rem;
+      color: var(--vermelho);
+      filter: drop-shadow(0 0 15px rgba(227,6,19,0.5));
+      left: 8%;
+      top: 105%;
+      z-index: 1;
+      transition: transform 0.1s linear;
     }
 
     .hero-content {
@@ -212,8 +223,9 @@
     }
 
     @media (max-width: 768px) {
-      .gear1 { font-size: 10rem; left: -8%; }
-      .gear2 { font-size: 8rem; right: -8%; }
+      .gear1 { font-size: 10rem; left: -6%; }
+      .gear2 { font-size: 8rem; right: -6%; }
+      .gear-extra { font-size: 5.5rem; left: 5%; top: 102%; }
     }
   </style>
 </head>
@@ -246,7 +258,9 @@
     </div>
   </section>
 
-  <!-- Restante do conteúdo (igual) -->
+  <!-- Engrenagem extra acima dos Serviços -->
+  <i class="fas fa-cog gear-extra" id="gearExtra"></i>
+
   <section id="sobre">
     <h2 class="section-title">A3 Usinagem</h2>
     <p style="max-width: 800px; margin: 0 auto; font-size: clamp(1.1rem, 4vw, 1.3rem); text-align: center; line-height: 1.7;">
@@ -304,11 +318,12 @@
     </div>
   </section>
 
-  <!-- MODAL e LIGHTBOX -->
+  <!-- MODAL -->
   <div id="modal" onclick="if(event.target === this) closeModal()">
     <div class="modal-content" id="modalContent"></div>
   </div>
 
+  <!-- LIGHTBOX -->
   <div id="lightbox" onclick="if(event.target === this) closeLightbox()">
     <div id="lightbox-content">
       <div class="close-btn" onclick="closeLightbox()">✕</div>
@@ -321,18 +336,16 @@
   </footer>
 
   <script>
-    // Controle das engrenagens por scroll
     const gear1 = document.getElementById('gear1');
     const gear2 = document.getElementById('gear2');
+    const gearExtra = document.getElementById('gearExtra');
 
     function updateGears() {
       const scrollY = window.scrollY;
       
-      const rotation1 = scrollY * 0.25;   // Sentido horário
-      const rotation2 = scrollY * -0.32;  // Sentido anti-horário
-
-      gear1.style.transform = `rotate(${rotation1}deg)`;
-      gear2.style.transform = `rotate(${rotation2}deg)`;
+      gear1.style.transform = `rotate(${scrollY * 0.25}deg)`;
+      gear2.style.transform = `rotate(${scrollY * -0.32}deg)`;
+      gearExtra.style.transform = `rotate(${scrollY * 0.40}deg)`;
     }
 
     window.addEventListener('scroll', updateGears);
