@@ -43,7 +43,7 @@
     }
     nav a:hover { color: var(--vermelho); }
 
-    /* ==================== HERO COM ENGRENAGENS ==================== */
+    /* ==================== HERO ==================== */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -60,45 +60,27 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      overflow: hidden;
       z-index: 1;
     }
 
     .gear {
       position: absolute;
-      color: rgba(227, 6, 19, 0.25);     /* Aumentada */
-      filter: drop-shadow(0 0 25px rgba(227,6,19,0.3));
-      animation: rotateSlow linear infinite;
-      z-index: 1;
+      color: rgba(227, 6, 19, 0.28);
+      filter: drop-shadow(0 0 20px rgba(227,6,19,0.35));
+      transition: transform 0.1s linear;
     }
 
     .gear1 {
-      font-size: 22rem;
-      top: -10%;
-      left: -8%;
-      animation-duration: 140s;
+      font-size: 14rem;
+      top: 10%;
+      left: -5%;
     }
 
     .gear2 {
-      font-size: 17rem;
-      bottom: -8%;
-      right: -10%;
-      animation-duration: 95s;
-      animation-direction: reverse;
-      opacity: 0.18;
-    }
-
-    .gear3 {
-      font-size: 10rem;
-      top: 32%;
-      right: 15%;
-      animation-duration: 65s;
-      opacity: 0.22;
-    }
-
-    @keyframes rotateSlow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      font-size: 11rem;
+      bottom: 12%;
+      right: -6%;
+      color: rgba(227, 6, 19, 0.22);
     }
 
     .hero-content {
@@ -108,7 +90,7 @@
     }
 
     .hero h1 {
-      font-size: clamp(2.8rem, 8.5vw, 5.4rem);
+      font-size: clamp(2.8rem, 8.5vw, 5.2rem);
       line-height: 1.05;
       margin-bottom: 1.2rem;
     }
@@ -229,11 +211,9 @@
       transform: scale(1.1);
     }
 
-    /* Responsivo */
     @media (max-width: 768px) {
-      .gear1 { font-size: 16rem; left: -12%; top: -6%; }
-      .gear2 { font-size: 13rem; right: -10%; bottom: -6%; }
-      .gear3 { display: none; }
+      .gear1 { font-size: 10rem; left: -8%; }
+      .gear2 { font-size: 8rem; right: -8%; }
     }
   </style>
 </head>
@@ -254,9 +234,8 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-gears">
-      <i class="fas fa-cog gear gear1"></i>
-      <i class="fas fa-cog gear gear2"></i>
-      <i class="fas fa-cog gear gear3"></i>
+      <i class="fas fa-cog gear gear1" id="gear1"></i>
+      <i class="fas fa-cog gear gear2" id="gear2"></i>
     </div>
 
     <div class="hero-content">
@@ -267,7 +246,7 @@
     </div>
   </section>
 
-  <!-- Restante do site permanece igual -->
+  <!-- Restante do conteúdo (igual) -->
   <section id="sobre">
     <h2 class="section-title">A3 Usinagem</h2>
     <p style="max-width: 800px; margin: 0 auto; font-size: clamp(1.1rem, 4vw, 1.3rem); text-align: center; line-height: 1.7;">
@@ -313,32 +292,23 @@
     </p>
 
     <div style="text-align: center; margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-      <a href="https://www.instagram.com/a3mocusinagem/" target="_blank" 
-         style="background: #e30613; color: white; padding: 16px 32px; border-radius: 50px; 
-                font-size: 1.15rem; font-weight: bold; text-decoration: none; 
-                display: inline-flex; align-items: center; gap: 10px; min-width: 170px; 
-                justify-content: center;">
+      <a href="https://www.instagram.com/a3mocusinagem/" target="_blank" style="background: #e30613; color: white; padding: 16px 32px; border-radius: 50px; font-size: 1.15rem; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; min-width: 170px; justify-content: center;">
         <i class="fab fa-instagram" style="font-size: 1.5rem;"></i>
         Instagram
       </a>
 
-      <a href="https://wa.me/5538999999999?text=Olá%20A3%20Usinagem" target="_blank" 
-         style="background: #25D366; color: white; padding: 16px 32px; border-radius: 50px; 
-                font-size: 1.15rem; font-weight: bold; text-decoration: none; 
-                display: inline-flex; align-items: center; gap: 10px; min-width: 170px; 
-                justify-content: center;">
+      <a href="https://wa.me/5538999999999?text=Olá%20A3%20Usinagem" target="_blank" style="background: #25D366; color: white; padding: 16px 32px; border-radius: 50px; font-size: 1.15rem; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; min-width: 170px; justify-content: center;">
         <i class="fab fa-whatsapp" style="font-size: 1.6rem;"></i>
         WhatsApp
       </a>
     </div>
   </section>
 
-  <!-- MODAL -->
+  <!-- MODAL e LIGHTBOX -->
   <div id="modal" onclick="if(event.target === this) closeModal()">
     <div class="modal-content" id="modalContent"></div>
   </div>
 
-  <!-- LIGHTBOX -->
   <div id="lightbox" onclick="if(event.target === this) closeLightbox()">
     <div id="lightbox-content">
       <div class="close-btn" onclick="closeLightbox()">✕</div>
@@ -351,6 +321,24 @@
   </footer>
 
   <script>
+    // Controle das engrenagens por scroll
+    const gear1 = document.getElementById('gear1');
+    const gear2 = document.getElementById('gear2');
+
+    function updateGears() {
+      const scrollY = window.scrollY;
+      
+      const rotation1 = scrollY * 0.25;   // Sentido horário
+      const rotation2 = scrollY * -0.32;  // Sentido anti-horário
+
+      gear1.style.transform = `rotate(${rotation1}deg)`;
+      gear2.style.transform = `rotate(${rotation2}deg)`;
+    }
+
+    window.addEventListener('scroll', updateGears);
+    window.addEventListener('load', updateGears);
+
+    // Modal Services
     const services = [
       { title: "Usinagem CNC", icon: "fas fa-cogs", text: "Utilizamos máquinas CNC de última geração para produzir peças com precisão milimétrica." },
       { title: "Peças Especiais", icon: "fas fa-industry", text: "Desenvolvemos e fabricamos peças sob medida conforme o projeto do cliente." },
