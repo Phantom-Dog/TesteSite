@@ -20,15 +20,6 @@
       overflow-x: hidden;
     }
 
-    #pixelRain {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
     header {
       position: fixed;
       top: 0; width: 100%;
@@ -194,8 +185,6 @@
 </head>
 <body>
 
-  <canvas id="pixelRain"></canvas>
-
   <header>
     <div class="logo">
       <img src="logotipo" alt="A3 Usinagem">
@@ -290,7 +279,7 @@
     <div class="modal-content" id="modalContent"></div>
   </div>
 
-  <!-- LIGHTBOX Galeria com botão Fechar -->
+  <!-- LIGHTBOX Galeria -->
   <div id="lightbox" onclick="if(event.target === this) closeLightbox()">
     <div id="lightbox-content">
       <div class="close-btn" onclick="closeLightbox()">✕</div>
@@ -303,42 +292,6 @@
   </footer>
 
   <script>
-    // Pixel Rain (mantido)
-    const canvas = document.getElementById('pixelRain');
-    const ctx = canvas.getContext('2d');
-    function resize() { 
-      canvas.width = window.innerWidth; 
-      canvas.height = window.innerHeight; 
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    const pixels = [];
-    class Pixel {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height - 100;
-        this.speed = Math.random() * 1.2 + 0.6;
-        this.size = Math.random() * 2.8 + 1.2;
-        this.opacity = Math.random() * 0.4 + 0.6;
-      }
-      update() { this.y += this.speed; if (this.y > canvas.height) this.reset(); }
-      draw() {
-        ctx.fillStyle = '#ffffff';
-        ctx.globalAlpha = this.opacity;
-        ctx.fillRect(this.x, this.y, this.size, this.size);
-      }
-    }
-    for (let i = 0; i < 280; i++) pixels.push(new Pixel());
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      pixels.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(animate);
-    }
-    animate();
-
     // Modal Serviços
     const services = [
       { title: "Usinagem CNC", icon: "fas fa-cogs", text: "Utilizamos máquinas CNC de última geração para produzir peças com precisão milimétrica." },
@@ -361,7 +314,7 @@
       document.getElementById('modal').style.display = 'none';
     }
 
-    // Lightbox com botão Fechar
+    // Lightbox
     function openImage(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
