@@ -20,33 +20,26 @@
       overflow-x: hidden;
     }
 
-    /* Engrenagens laterais girando */
+    /* Engrenagens laterais */
     .gear-left, .gear-right {
       position: fixed;
-      font-size: 5.5rem;
-      color: rgba(227, 6, 19, 0.25);     /* Aumentei a opacidade */
-      z-index: 1;                        /* Mudado para aparecer */
+      font-size: 6.2rem;
+      color: rgba(227, 6, 19, 0.6);     /* Ainda mais visível */
+      z-index: 2;
       pointer-events: none;
-      animation: spin 28s linear infinite;
-      filter: drop-shadow(0 0 8px rgba(227,6,19,0.3));
+      filter: drop-shadow(0 0 15px rgba(227,6,19,0.6));
+      transition: transform 0.08s linear;
     }
 
     .gear-left {
       left: 4%;
-      top: 22%;
+      top: 18%;
     }
 
     .gear-right {
       right: 4%;
       top: 48%;
-      font-size: 4.2rem;
-      animation-duration: 20s;
-      animation-direction: reverse;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      font-size: 4.9rem;
     }
 
     header {
@@ -148,7 +141,6 @@
       border: 1px solid var(--vermelho);
     }
 
-    /* MODAL E LIGHTBOX */
     #modal, #lightbox {
       display: none;
       position: fixed;
@@ -206,8 +198,8 @@
 <body>
 
   <!-- Engrenagens decorativas -->
-  <i class="fas fa-cog gear-left"></i>
-  <i class="fas fa-cog gear-right"></i>
+  <i class="fas fa-cog gear-left" id="gearLeft"></i>
+  <i class="fas fa-cog gear-right" id="gearRight"></i>
 
   <header>
     <div class="logo">
@@ -221,7 +213,6 @@
     </nav>
   </header>
 
-  <!-- Resto do conteúdo permanece igual -->
   <section class="hero">
     <div>
       <h1>Precisão que <span class="highlight">move</span> indústrias</h1>
@@ -314,6 +305,25 @@
   </footer>
 
   <script>
+    const gearLeft = document.getElementById('gearLeft');
+    const gearRight = document.getElementById('gearRight');
+
+    function updateGears() {
+      const scrollY = window.scrollY;
+      
+      // Rotação totalmente controlada pela posição do scroll
+      // Quando sobe → gira ao contrário automaticamente
+      const rotationLeft = scrollY * 0.28;
+      const rotationRight = scrollY * -0.35;
+
+      gearLeft.style.transform = `rotate(${rotationLeft}deg)`;
+      gearRight.style.transform = `rotate(${rotationRight}deg)`;
+    }
+
+    window.addEventListener('scroll', updateGears);
+    window.addEventListener('load', updateGears);
+
+    // Modal Services
     const services = [
       { title: "Usinagem CNC", icon: "fas fa-cogs", text: "Utilizamos máquinas CNC de última geração para produzir peças com precisão milimétrica." },
       { title: "Peças Especiais", icon: "fas fa-industry", text: "Desenvolvemos e fabricamos peças sob medida conforme o projeto do cliente." },
