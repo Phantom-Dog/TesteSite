@@ -22,7 +22,8 @@
 
     header {
       position: fixed;
-      top: 0; width: 100%;
+      top: 0; 
+      width: 100%;
       background: rgba(10,10,10,0.97);
       backdrop-filter: blur(12px);
       z-index: 1000;
@@ -35,13 +36,28 @@
 
     .logo img { height: 52px; }
 
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+    }
+
     nav a {
       color: white;
       text-decoration: none;
-      margin-left: 1.6rem;
       font-weight: 500;
+      white-space: nowrap;
+      transition: color 0.3s;
     }
     nav a:hover { color: var(--vermelho); }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+    }
 
     /* ==================== HERO ==================== */
     .hero {
@@ -70,19 +86,9 @@
       transition: transform 0.1s linear;
     }
 
-    .gear1 {
-      font-size: 14rem;
-      top: 8%;
-      left: -4%;
-    }
+    .gear1 { font-size: 14rem; top: 8%; left: -4%; }
+    .gear2 { font-size: 11rem; bottom: 15%; right: -5%; }
 
-    .gear2 {
-      font-size: 11rem;
-      bottom: 15%;
-      right: -5%;
-    }
-
-    /* Nova engrenagem abaixo do Hero */
     .gear-extra {
       position: absolute;
       font-size: 7rem;
@@ -156,7 +162,7 @@
       gap: 1.8rem;
     }
 
-    .service-card {
+    .service-card, .gallery-card {
       background: #1a1a1a;
       padding: 2.2rem 1.5rem;
       border-radius: 16px;
@@ -164,11 +170,12 @@
       cursor: pointer;
       transition: 0.4s;
     }
-    .service-card:hover {
+    .service-card:hover, .gallery-card:hover {
       transform: translateY(-12px);
       border: 1px solid var(--vermelho);
     }
 
+    /* Modal e Lightbox */
     #modal, #lightbox {
       display: none;
       position: fixed;
@@ -222,7 +229,43 @@
       transform: scale(1.1);
     }
 
+    /* ==================== RESPONSIVO ==================== */
+    @media (max-width: 992px) {
+      nav {
+        gap: 1rem;
+      }
+      nav a {
+        font-size: 0.95rem;
+      }
+    }
+
     @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      nav {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--preto);
+        flex-direction: column;
+        justify-content: start;
+        padding: 3rem 0;
+        gap: 2rem;
+        transition: all 0.4s ease;
+      }
+
+      nav.active {
+        left: 0;
+      }
+
+      nav a {
+        font-size: 1.3rem;
+      }
+
       .gear1 { font-size: 10rem; left: -6%; }
       .gear2 { font-size: 8rem; right: -6%; }
       .gear-extra { font-size: 5.5rem; left: 5%; top: 102%; }
@@ -235,12 +278,17 @@
     <div class="logo">
       <img src="logotipo" alt="A3 Usinagem">
     </div>
-    <nav>
+    
+    <nav id="navMenu">
       <a href="#sobre">Sobre</a>
       <a href="#servicos">Serviços</a>
       <a href="#galeria">Galeria</a>
       <a href="#historia">Nossa História</a>
     </nav>
+
+    <div class="hamburger" id="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
   </header>
 
   <!-- HERO -->
@@ -258,7 +306,6 @@
     </div>
   </section>
 
-  <!-- Engrenagem extra acima dos Serviços -->
   <i class="fas fa-cog gear-extra" id="gearExtra"></i>
 
   <section id="sobre">
@@ -336,20 +383,43 @@
   </footer>
 
   <script>
+    // Gears animation
     const gear1 = document.getElementById('gear1');
     const gear2 = document.getElementById('gear2');
     const gearExtra = document.getElementById('gearExtra');
 
     function updateGears() {
       const scrollY = window.scrollY;
-      
       gear1.style.transform = `rotate(${scrollY * 0.25}deg)`;
       gear2.style.transform = `rotate(${scrollY * -0.32}deg)`;
-      gearExtra.style.transform = `rotate(${scrollY * 0.40}deg)`;
+      if (gearExtra) gearExtra.style.transform = `rotate(${scrollY * 0.40}deg)`;
     }
 
     window.addEventListener('scroll', updateGears);
     window.addEventListener('load', updateGears);
+
+    // Hamburger Menu
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      
+      // Troca ícone
+      if (navMenu.classList.contains('active')) {
+        hamburger.innerHTML = '<i class="fas fa-times"></i>';
+      } else {
+        hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+      }
+    });
+
+    // Fecha menu ao clicar em um link
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
 
     // Modal Services
     const services = [
