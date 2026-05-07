@@ -20,28 +20,6 @@
       overflow-x: hidden;
     }
 
-    /* Engrenagens laterais */
-    .gear-left, .gear-right {
-      position: fixed;
-      font-size: 6.2rem;
-      color: rgba(227, 6, 19, 0.6);     /* Ainda mais visível */
-      z-index: 2;
-      pointer-events: none;
-      filter: drop-shadow(0 0 15px rgba(227,6,19,0.6));
-      transition: transform 0.08s linear;
-    }
-
-    .gear-left {
-      left: 4%;
-      top: 18%;
-    }
-
-    .gear-right {
-      right: 4%;
-      top: 48%;
-      font-size: 4.9rem;
-    }
-
     header {
       position: fixed;
       top: 0; width: 100%;
@@ -65,47 +43,104 @@
     }
     nav a:hover { color: var(--vermelho); }
 
+    /* ==================== HERO COM ENGRENAGENS ==================== */
     .hero {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       position: relative;
-      padding: 130px 15px 60px;
+      overflow: hidden;
+      padding: 130px 15px 80px;
+      background: radial-gradient(circle at center, #1a1a1a 0%, var(--preto) 70%);
+    }
+
+    .hero-gears {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .gear {
+      position: absolute;
+      color: rgba(227, 6, 19, 0.09);
+      filter: drop-shadow(0 0 20px rgba(227,6,19,0.15));
+      animation: rotateSlow linear infinite;
+      z-index: 1;
+    }
+
+    .gear1 {
+      font-size: 22rem;
+      top: -8%;
+      left: -6%;
+      animation-duration: 140s;
+    }
+
+    .gear2 {
+      font-size: 16rem;
+      bottom: -5%;
+      right: -8%;
+      animation-duration: 95s;
+      animation-direction: reverse;
+      opacity: 0.07;
+    }
+
+    .gear3 {
+      font-size: 9rem;
+      top: 35%;
+      right: 12%;
+      animation-duration: 70s;
+      opacity: 0.06;
+    }
+
+    @keyframes rotateSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
     }
 
     .hero h1 {
-      font-size: clamp(2.8rem, 8.5vw, 5.2rem);
-      line-height: 1.1;
-      margin-bottom: 1rem;
+      font-size: clamp(2.8rem, 8.5vw, 5.4rem);
+      line-height: 1.05;
+      margin-bottom: 1.2rem;
     }
     .hero .highlight { color: var(--vermelho); }
 
     .hero p {
-      font-size: clamp(1.1rem, 4vw, 1.35rem);
-      max-width: 700px;
-      margin: 0 auto 2rem;
-      opacity: 0.9;
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
+      max-width: 720px;
+      margin: 0 auto 2.2rem;
+      opacity: 0.92;
     }
 
     .btn {
       background: var(--vermelho);
       color: white;
-      padding: 16px 42px;
+      padding: 16px 46px;
       border-radius: 50px;
-      font-size: clamp(1.1rem, 4vw, 1.3rem);
+      font-size: clamp(1.1rem, 4vw, 1.32rem);
       font-weight: bold;
       text-decoration: none;
+      display: inline-block;
       transition: all 0.4s;
     }
-    .btn:hover { transform: translateY(-6px) scale(1.05); }
+    .btn:hover {
+      transform: translateY(-6px) scale(1.06);
+      box-shadow: 0 15px 30px rgba(227, 6, 19, 0.35);
+    }
 
     .scroll-hint {
-      margin-top: 3rem;
-      animation: bounce 2s infinite;
-      font-size: 2.2rem;
+      margin-top: 3.5rem;
+      animation: bounce 2.2s infinite;
+      font-size: 2.4rem;
       color: #e30613;
     }
     @keyframes bounce {
@@ -193,13 +228,16 @@
       background: #ff1a2e;
       transform: scale(1.1);
     }
+
+    /* Responsivo - Engrenagens */
+    @media (max-width: 768px) {
+      .gear1 { font-size: 15rem; left: -15%; top: -5%; }
+      .gear2 { font-size: 12rem; right: -12%; bottom: -8%; }
+      .gear3 { display: none; }
+    }
   </style>
 </head>
 <body>
-
-  <!-- Engrenagens decorativas -->
-  <i class="fas fa-cog gear-left" id="gearLeft"></i>
-  <i class="fas fa-cog gear-right" id="gearRight"></i>
 
   <header>
     <div class="logo">
@@ -213,8 +251,15 @@
     </nav>
   </header>
 
+  <!-- HERO COM ENGRENAGENS -->
   <section class="hero">
-    <div>
+    <div class="hero-gears">
+      <i class="fas fa-cog gear gear1"></i>
+      <i class="fas fa-cog gear gear2"></i>
+      <i class="fas fa-cog gear gear3"></i>
+    </div>
+
+    <div class="hero-content">
       <h1>Precisão que <span class="highlight">move</span> indústrias</h1>
       <p>Usinagem de alta performance com tecnologia de ponta e qualidade certificada.</p>
       <a href="#historia" class="btn">SAIBA MAIS</a>
@@ -305,24 +350,6 @@
   </footer>
 
   <script>
-    const gearLeft = document.getElementById('gearLeft');
-    const gearRight = document.getElementById('gearRight');
-
-    function updateGears() {
-      const scrollY = window.scrollY;
-      
-      // Rotação totalmente controlada pela posição do scroll
-      // Quando sobe → gira ao contrário automaticamente
-      const rotationLeft = scrollY * 0.28;
-      const rotationRight = scrollY * -0.35;
-
-      gearLeft.style.transform = `rotate(${rotationLeft}deg)`;
-      gearRight.style.transform = `rotate(${rotationRight}deg)`;
-    }
-
-    window.addEventListener('scroll', updateGears);
-    window.addEventListener('load', updateGears);
-
     // Modal Services
     const services = [
       { title: "Usinagem CNC", icon: "fas fa-cogs", text: "Utilizamos máquinas CNC de última geração para produzir peças com precisão milimétrica." },
