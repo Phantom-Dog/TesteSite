@@ -23,24 +23,25 @@
     /* Engrenagens laterais girando */
     .gear-left, .gear-right {
       position: fixed;
-      top: 25%;
-      font-size: 4.5rem;
-      color: rgba(227, 6, 19, 0.12);
-      z-index: -1;
+      font-size: 5.5rem;
+      color: rgba(227, 6, 19, 0.25);     /* Aumentei a opacidade */
+      z-index: 1;                        /* Mudado para aparecer */
       pointer-events: none;
-      animation: spin 25s linear infinite;
+      animation: spin 28s linear infinite;
+      filter: drop-shadow(0 0 8px rgba(227,6,19,0.3));
     }
 
     .gear-left {
-      left: 5%;
+      left: 4%;
+      top: 22%;
     }
 
     .gear-right {
-      right: 5%;
-      animation-duration: 18s;
+      right: 4%;
+      top: 48%;
+      font-size: 4.2rem;
+      animation-duration: 20s;
       animation-direction: reverse;
-      font-size: 3.8rem;
-      top: 45%;
     }
 
     @keyframes spin {
@@ -220,6 +221,7 @@
     </nav>
   </header>
 
+  <!-- Resto do conteúdo permanece igual -->
   <section class="hero">
     <div>
       <h1>Precisão que <span class="highlight">move</span> indústrias</h1>
@@ -236,7 +238,6 @@
     </p>
   </section>
 
-  <!-- Serviços -->
   <section id="servicos">
     <h2 class="section-title">Nossos Serviços</h2>
     <div class="services-grid">
@@ -255,7 +256,6 @@
     </div>
   </section>
 
-  <!-- Galeria -->
   <section id="galeria">
     <h2 class="section-title">Galeria de Projetos</h2>
     <div class="services-grid">
@@ -268,7 +268,6 @@
     </div>
   </section>
 
-  <!-- Nossa História -->
   <section id="historia" style="background: #111;">
     <h2 class="section-title">Nossa História</h2>
     <p style="max-width: 800px; margin: 0 auto 3rem; font-size: clamp(1.1rem, 4vw, 1.3rem); text-align: center; line-height: 1.8;">
@@ -297,7 +296,7 @@
     </div>
   </section>
 
-  <!-- MODAL Serviços -->
+  <!-- MODAL -->
   <div id="modal" onclick="if(event.target === this) closeModal()">
     <div class="modal-content" id="modalContent"></div>
   </div>
@@ -315,7 +314,6 @@
   </footer>
 
   <script>
-    // Modal Serviços
     const services = [
       { title: "Usinagem CNC", icon: "fas fa-cogs", text: "Utilizamos máquinas CNC de última geração para produzir peças com precisão milimétrica." },
       { title: "Peças Especiais", icon: "fas fa-industry", text: "Desenvolvemos e fabricamos peças sob medida conforme o projeto do cliente." },
@@ -337,7 +335,6 @@
       document.getElementById('modal').style.display = 'none';
     }
 
-    // Lightbox
     function openImage(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
